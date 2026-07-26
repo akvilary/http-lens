@@ -8,9 +8,9 @@
 import PackageDescription
 
 let package = Package(
-    name: "lens",
+    name: "http-lens",
     products: [
-        .library(name: "Lens", targets: ["Lens"]),
+        .library(name: "HTTPLens", targets: ["Lens"]),
     ],
     dependencies: [
         .package(url: "https://github.com/akvilary/http.git", from: "0.1.0"),
@@ -24,7 +24,7 @@ let package = Package(
             linkerSettings: [.linkedLibrary("z")]
         ),
         .target(
-            name: "Lens",
+            name: "HTTPLens",
             dependencies: [
                 "CLens",
                 .product(name: "HTTP", package: "http"),
@@ -34,7 +34,7 @@ let package = Package(
             swiftSettings: baseSwiftSettings
         ),
         .testTarget(
-            name: "LensTests",
+            name: "HTTPLensTests",
             dependencies: ["Lens"],
             path: "Tests/LensTests",
             swiftSettings: baseSwiftSettings
