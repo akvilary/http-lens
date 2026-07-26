@@ -12,7 +12,7 @@
 
 import Foundation
 import HTTP
-import Prism
+import HTTPPrism
 
 /// Timeout middleware layer — direct port of `tower::timeout::Timeout`.
 ///

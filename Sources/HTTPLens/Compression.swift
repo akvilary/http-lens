@@ -17,7 +17,7 @@ import CLens
 
 import Foundation
 import HTTP
-import Prism
+import HTTPPrism
 
 /// Configuration for `CompressionLayer`.
 public struct CompressionConfig: Sendable {

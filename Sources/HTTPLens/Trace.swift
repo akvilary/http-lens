@@ -12,7 +12,7 @@
 
 import Foundation
 import HTTP
-import Prism
+import HTTPPrism
 
 /// Configuration for `TraceLayer`. Mirrors `tower_http::trace::TraceLayer`.
 ///

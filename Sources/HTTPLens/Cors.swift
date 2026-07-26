@@ -12,7 +12,7 @@
 
 import Foundation
 import HTTP
-import Prism
+import HTTPPrism
 
 /// CORS configuration — direct port of `tower_http::cors::CorsLayer`.
 public struct CorsConfig: Sendable {

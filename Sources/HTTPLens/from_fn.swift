@@ -13,7 +13,7 @@
 
 import Foundation
 import HTTP
-import Prism
+import HTTPPrism
 
 /// The function shape `from_fn` accepts.
 ///

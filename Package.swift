@@ -14,7 +14,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/akvilary/http.git", from: "0.1.0"),
-        .package(url: "https://github.com/akvilary/prism.git", from: "0.1.0"),
+        .package(url: "https://github.com/akvilary/http-prism.git", from: "0.1.0"),
     ],
     targets: [
         .target(
@@ -28,7 +28,7 @@ let package = Package(
             dependencies: [
                 "CLens",
                 .product(name: "HTTP", package: "http"),
-                .product(name: "Prism", package: "prism"),
+                .product(name: "HTTPPrism", package: "http-prism"),
             ],
             path: "Sources/HTTPLens",
             swiftSettings: baseSwiftSettings

@@ -13,7 +13,7 @@
 import Foundation
 import Synchronization
 import HTTP
-import Prism
+import HTTPPrism
 
 /// Per-key request counter. Uses a fixed-window algorithm: each key
 /// (typically the client IP) gets `maxRequests` per `windowDuration`.
