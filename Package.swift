@@ -10,7 +10,7 @@ import PackageDescription
 let package = Package(
     name: "http-lens",
     products: [
-        .library(name: "HTTPLens", targets: ["Lens"]),
+        .library(name: "HTTPLens", targets: ["HTTPLens"]),
     ],
     dependencies: [
         .package(url: "https://github.com/akvilary/http.git", from: "0.1.0"),
@@ -30,13 +30,13 @@ let package = Package(
                 .product(name: "HTTP", package: "http"),
                 .product(name: "Prism", package: "prism"),
             ],
-            path: "Sources/Lens",
+            path: "Sources/HTTPLens",
             swiftSettings: baseSwiftSettings
         ),
         .testTarget(
             name: "HTTPLensTests",
-            dependencies: ["Lens"],
-            path: "Tests/LensTests",
+            dependencies: ["HTTPLens"],
+            path: "Tests/HTTPLensTests",
             swiftSettings: baseSwiftSettings
         ),
     ]
