@@ -13,8 +13,8 @@ let package = Package(
         .library(name: "HTTPLens", targets: ["HTTPLens"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/akvilary/http.git", from: "0.1.0"),
-        .package(url: "https://github.com/akvilary/http-prism.git", from: "0.1.0"),
+        .package(path: "../http"),
+        .package(path: "../http-prism"),
     ],
     targets: [
         .target(
