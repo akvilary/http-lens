@@ -31,7 +31,7 @@ Linux primary; gzip is backed by zlib through a small C wrapper target
 ## Installation
 
 ```swift
-.package(url: "https://github.com/akvilary/http-lens.git", from: "0.1.0")
+.package(url: "https://github.com/akvilary/http-lens.git", from: "0.1.1")
 ```
 
 ```swift
