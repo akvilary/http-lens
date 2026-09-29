@@ -13,7 +13,7 @@ let package = Package(
         .library(name: "HTTPLens", targets: ["HTTPLens"]),
     ],
     dependencies: [
-        .package(path: "../http"),
+        .package(path: "../http-model"),
         .package(path: "../http-prism"),
     ],
     targets: [
@@ -27,7 +27,7 @@ let package = Package(
             name: "HTTPLens",
             dependencies: [
                 "CLens",
-                .product(name: "HTTP", package: "http"),
+                .product(name: "HTTP", package: "http-model"),
                 .product(name: "HTTPPrism", package: "http-prism"),
             ],
             path: "Sources/HTTPLens",
