@@ -14,7 +14,7 @@ Direct ports of the tower-http / axum middleware you'd recognise:
 - `RateLimitLayer` — per-peer token bucket → `429 Too Many Requests`
 - `from_fn` — wrap an `(request, next) -> response` closure into a `Layer`
 
-Built on [`http`](https://github.com/akvilary/http) for the message types and
+Built on [`http-model`](https://github.com/akvilary/http-model) for the message types and
 [`http-prism`](https://github.com/akvilary/http-prism) for `Service` / `Layer`.
 
 ## Status
@@ -50,7 +50,7 @@ outermost-first — the first one wraps everything below:
 ```swift
 import HTTPLens
 import HTTPPrism
-import HTTP
+import HTTPModel
 
 let svc = ServiceBuilder()
     .layer(CompressionLayer().asLayer())                    // gzip by Accept-Encoding
