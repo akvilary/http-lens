@@ -11,7 +11,7 @@
 //===----------------------------------------------------------------------===//
 
 import Foundation
-import HTTP
+import HTTPModel
 import HTTPPrism
 
 /// Timeout middleware layer — direct port of `tower::timeout::Timeout`.
@@ -31,7 +31,7 @@ public struct TimeoutLayer: Sendable {
         self.duration = duration
     }
 
-    public func asLayer() -> Layer<HTTP.Request, HTTP.Response> {
+    public func asLayer() -> Layer<HTTPModel.Request, HTTPModel.Response> {
         let timeout = duration
         return Layer { inner in
             BoxService { request in
@@ -52,10 +52,10 @@ public struct TimeoutLayer: Sendable {
                 // group hangs — this is a general Swift Concurrency
                 // limitation, not specific to this middleware.
                 let result = await withTaskGroup(
-                    of: HTTP.Response?.self,
-                    returning: HTTP.Response?.self
+                    of: HTTPModel.Response?.self,
+                    returning: HTTPModel.Response?.self
                 ) { group in
-                    group.addTask { () -> HTTP.Response? in
+                    group.addTask { () -> HTTPModel.Response? in
                         do {
                             return try await inner.call(request)
                         } catch {
@@ -63,7 +63,7 @@ public struct TimeoutLayer: Sendable {
                             h.insert(.contentType, "text/plain; charset=utf-8")
                             let msg = "Internal Server Error"
                             h.insert(.contentLength, String(msg.utf8.count))
-                            return HTTP.Response(
+                            return HTTPModel.Response(
                                 status: .internalServerError,
                                 headers: h,
                                 body: .buffered(Array(msg.utf8))
@@ -85,7 +85,7 @@ public struct TimeoutLayer: Sendable {
                     headers.insert(.contentType, "text/plain; charset=utf-8")
                     let body = "Gateway Timeout: \(method) \(path) exceeded \(timeout)\n"
                     headers.insert(.contentLength, String(body.utf8.count))
-                    return HTTP.Response(
+                    return HTTPModel.Response(
                         status: .gatewayTimeout,
                         headers: headers,
                         body: .buffered(Array(body.utf8))

@@ -11,7 +11,7 @@
 //===----------------------------------------------------------------------===//
 
 import Foundation
-import HTTP
+import HTTPModel
 import HTTPPrism
 
 /// Configuration for `TraceLayer`. Mirrors `tower_http::trace::TraceLayer`.
@@ -83,7 +83,7 @@ public struct TraceLayer: Sendable {
     }
 
     /// Convert to a `Layer` that can be passed to `Router.layer(_:)`.
-    public func asLayer() -> Layer<HTTP.Request, HTTP.Response> {
+    public func asLayer() -> Layer<HTTPModel.Request, HTTPModel.Response> {
         Layer { inner in
             BoxService { request in
                 let method = request.method

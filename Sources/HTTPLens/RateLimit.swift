@@ -12,7 +12,7 @@
 
 import Foundation
 import Synchronization
-import HTTP
+import HTTPModel
 import HTTPPrism
 
 /// Per-key request counter. Uses a fixed-window algorithm: each key
@@ -94,7 +94,7 @@ public final class RateLimiter: Sendable {
 /// ```
 public struct RateLimitLayer: Sendable {
     public let limiter: RateLimiter
-    public let keyExtractor: @Sendable (HTTP.Request) -> String?
+    public let keyExtractor: @Sendable (HTTPModel.Request) -> String?
 
     /// Create a rate-limit layer.
     ///
@@ -108,7 +108,7 @@ public struct RateLimitLayer: Sendable {
     @inlinable
     public init(
         limiter: RateLimiter,
-        keyExtractor: @Sendable @escaping (HTTP.Request) -> String? = { req in
+        keyExtractor: @Sendable @escaping (HTTPModel.Request) -> String? = { req in
             req.extensions.get(ConnectInfo.self)?.peerAddress
         }
     ) {
@@ -116,7 +116,7 @@ public struct RateLimitLayer: Sendable {
         self.keyExtractor = keyExtractor
     }
 
-    public func asLayer() -> Layer<HTTP.Request, HTTP.Response> {
+    public func asLayer() -> Layer<HTTPModel.Request, HTTPModel.Response> {
         let limiter = self.limiter
         let extractKey = self.keyExtractor
         return Layer { inner in
@@ -131,7 +131,7 @@ public struct RateLimitLayer: Sendable {
                     var headers = HeaderMap()
                     headers.insert(.contentType, "text/plain; charset=utf-8")
                     headers.insert(.contentLength, String(body.utf8.count))
-                    return HTTP.Response(
+                    return HTTPModel.Response(
                         status: .internalServerError,
                         headers: headers,
                         body: .buffered(Array(body.utf8))
@@ -144,7 +144,7 @@ public struct RateLimitLayer: Sendable {
                     headers.insert(.contentType, "text/plain; charset=utf-8")
                     headers.insert(.contentLength, String(body.utf8.count))
                     headers.insert(.retryAfter, "1")
-                    return HTTP.Response(
+                    return HTTPModel.Response(
                         status: .tooManyRequests,
                         headers: headers,
                         body: .buffered(Array(body.utf8))

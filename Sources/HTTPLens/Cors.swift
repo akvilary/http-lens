@@ -11,7 +11,7 @@
 //===----------------------------------------------------------------------===//
 
 import Foundation
-import HTTP
+import HTTPModel
 import HTTPPrism
 
 /// CORS configuration — direct port of `tower_http::cors::CorsLayer`.
@@ -62,7 +62,7 @@ public struct CorsLayer: Sendable {
         self.config = config
     }
 
-    public func asLayer() -> Layer<HTTP.Request, HTTP.Response> {
+    public func asLayer() -> Layer<HTTPModel.Request, HTTPModel.Response> {
         let cfg = config
         return Layer { inner in
             BoxService { request in
@@ -101,7 +101,7 @@ public struct CorsLayer: Sendable {
     @inline(__always)
     private static func preflightResponse(
         config: CorsConfig, request: Request
-    ) -> HTTP.Response {
+    ) -> HTTPModel.Response {
         var headers = HeaderMap()
 
         // Vary: Origin — preflight responses vary by origin.
@@ -113,7 +113,7 @@ public struct CorsLayer: Sendable {
             // Origin not allowed — return 403 without Allow-* headers.
             // Browser blocks the preflight; API policy is not leaked.
             headers.insert(.contentLength, "0")
-            return HTTP.Response(status: .forbidden, headers: headers, body: .empty)
+            return HTTPModel.Response(status: .forbidden, headers: headers, body: .empty)
         }
 
         // Origin allowed — echo it and expose the full policy.
@@ -127,13 +127,13 @@ public struct CorsLayer: Sendable {
         }
         headers.insert(.accessControlMaxAge, String(config.maxAge))
         headers.insert(.contentLength, "0")
-        return HTTP.Response(status: .noContent, headers: headers, body: .empty)
+        return HTTPModel.Response(status: .noContent, headers: headers, body: .empty)
     }
 
     @inline(__always)
     private static func applyCorsHeaders(
         config: CorsConfig, request: Request,
-        response: inout HTTP.Response
+        response: inout HTTPModel.Response
     ) {
         // Vary: Origin — responses vary by origin when echoing
         // specific origins. Without this, CDNs serve one client's

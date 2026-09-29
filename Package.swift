@@ -27,7 +27,7 @@ let package = Package(
             name: "HTTPLens",
             dependencies: [
                 "CLens",
-                .product(name: "HTTP", package: "http-model"),
+                .product(name: "HTTPModel", package: "http-model"),
                 .product(name: "HTTPPrism", package: "http-prism"),
             ],
             path: "Sources/HTTPLens",

@@ -12,7 +12,7 @@
 //===----------------------------------------------------------------------===//
 
 import Foundation
-import HTTP
+import HTTPModel
 import HTTPPrism
 
 /// The function shape `from_fn` accepts.
